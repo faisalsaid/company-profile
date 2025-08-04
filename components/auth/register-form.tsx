@@ -63,109 +63,105 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center  p-4">
-      <Card className="w-full max-w-md rounded-2xl shadow-md">
-        <CardContent className="p-6 space-y-2">
-          {/* <GoogleAuth disabled={form.formState.isSubmitting} /> */}
-          {/* <div className="flex items-center space-x-2 mt-6">
+    <Card className="w-full max-w-md rounded-2xl shadow-md">
+      <CardContent className="p-6 space-y-2">
+        {/* <GoogleAuth disabled={form.formState.isSubmitting} /> */}
+        {/* <div className="flex items-center space-x-2 mt-6">
             <Separator className="flex-1" />
             <span className="text-xs text-muted-foreground">or</span>
             <Separator className="flex-1" />
           </div> */}
-          <h2 className="text-lg text-center">{t('CREATE-ACCOUNT')}</h2>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
-              <fieldset
-                disabled={form.formState.isSubmitting}
-                className="space-y-2"
-              >
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('NAME')} :</FormLabel>
-                      <FormControl>
-                        <Input
-                          className="text-sm"
-                          placeholder="e.g. Jhon Doe"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email :</FormLabel>
-                      <FormControl>
-                        <Input
-                          className="text-sm"
-                          placeholder="e.g. jhon-doe@email.com"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+        <h2 className="text-lg text-center">{t('CREATE-ACCOUNT')}</h2>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+            <fieldset
+              disabled={form.formState.isSubmitting}
+              className="space-y-4"
+            >
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('NAME')} :</FormLabel>
+                    <FormControl>
+                      <Input
+                        className="text-sm"
+                        placeholder="e.g. Jhon Doe"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email :</FormLabel>
+                    <FormControl>
+                      <Input
+                        className="text-sm"
+                        placeholder="e.g. jhon-doe@email.com"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('PASSWORD')} :</FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <Input
-                            {...field}
-                            type={showPassword ? 'text' : 'password'}
-                            placeholder={
-                              showPassword ? t('TYPE-PASSWORD') : '••••••••'
-                            }
-                            className="pr-10 text-sm"
-                          />
-                          <button
-                            type="button"
-                            onClick={() => setShowPassword(!showPassword)}
-                            className="absolute inset-y-0 right-0 px-3 flex items-center text-muted-foreground hover:cursor-pointer"
-                            tabIndex={-1}
-                          >
-                            {showPassword ? (
-                              <EyeOff size={18} />
-                            ) : (
-                              <Eye size={18} />
-                            )}
-                          </button>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('PASSWORD')} :</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Input
+                          {...field}
+                          type={showPassword ? 'text' : 'password'}
+                          placeholder={
+                            showPassword ? t('TYPE-PASSWORD') : '••••••••'
+                          }
+                          className="pr-10 text-sm"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute inset-y-0 right-0 px-3 flex items-center text-muted-foreground hover:cursor-pointer"
+                          tabIndex={-1}
+                        >
+                          {showPassword ? (
+                            <EyeOff size={18} />
+                          ) : (
+                            <Eye size={18} />
+                          )}
+                        </button>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-                <Button type="submit" className="w-full">
-                  {form.formState.isSubmitting
-                    ? t('PROCCESSING')
-                    : t('SIGN-UP')}
-                </Button>
-                <p className="text-xs text-center text-muted-foreground">
-                  {t('HAVE-ACOUNT?')}{' '}
-                  <Link href="/auth/login" className="text-sky-500 underline">
-                    {t('LOGIN-HERE')}
-                  </Link>
-                </p>
-              </fieldset>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
-    </div>
+              <Button type="submit" className="w-full">
+                {form.formState.isSubmitting ? t('PROCCESSING') : t('SIGN-UP')}
+              </Button>
+              <p className="text-xs text-center text-muted-foreground">
+                {t('HAVE-ACOUNT?')}{' '}
+                <Link href="/auth/login" className="text-sky-500 underline">
+                  {t('LOGIN-HERE')}
+                </Link>
+              </p>
+            </fieldset>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
   );
 };
 

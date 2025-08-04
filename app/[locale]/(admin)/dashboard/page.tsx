@@ -1,4 +1,5 @@
 import { auth } from '@/auth';
+import { LocaleSwitcher } from '@/components/LocaleSwitcher';
 import { redirect } from 'next/navigation';
 
 const DashboardPage = async () => {
