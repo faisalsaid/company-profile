@@ -25,7 +25,7 @@ import { signupCredentials } from '@/actions/authAction';
 import { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 
-const RegisterPage = () => {
+const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
@@ -165,4 +165,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default RegisterForm;

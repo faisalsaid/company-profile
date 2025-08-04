@@ -114,48 +114,25 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return session;
     },
 
-    authorized({ auth, request: { nextUrl } }) {
-      const user = auth?.user;
-      const isLoggedIn = !!user;
+    // authorized({ auth, request: { nextUrl } }) {
+    //   const user = auth?.user;
+    //   const isLoggedIn = !!user;
 
-      const roleRedaksi = ['ADMIN', 'EDITOR'];
+    //   // Ambil locale dari URL
+    //   const segments = nextUrl.pathname.split('/');
+    //   const locale = segments[1];
+    //   const pathAfterLocale = '/' + segments.slice(2).join('/');
 
-      const protectedRoutes = [
-        { prefix: '/dashboard', roles: roleRedaksi },
-        { prefix: '/blog', roles: roleRedaksi },
-      ];
+    //   const protectedRoutes = ['/dashboard', '/blog'];
+    //   const isProtected = protectedRoutes.some((r) =>
+    //     pathAfterLocale.startsWith(r),
+    //   );
 
-      const blockedWhenLoggedIn = ['/auth'];
+    //   if (!isLoggedIn && isProtected) {
+    //     return Response.redirect(new URL(`/${locale}/auth/login`, nextUrl));
+    //   }
 
-      // Verify if the route is protected and determine which role is required.
-      const matchedRoute = protectedRoutes.find((route) =>
-        nextUrl.pathname.startsWith(route.prefix),
-      );
-
-      const isBlockedRoute = blockedWhenLoggedIn.some((prefix) =>
-        nextUrl.pathname.startsWith(prefix),
-      );
-
-      // 🔒 Not logged in, but the route is protected.
-      if (!isLoggedIn && matchedRoute) {
-        return Response.redirect(new URL('/auth/login', nextUrl));
-      }
-
-      // ✅ Logged in, but the role is not authorized.
-      if (matchedRoute && isLoggedIn) {
-        const allowedRoles = matchedRoute.roles;
-        if (!allowedRoles.includes(user.role)) {
-          return Response.redirect(new URL('/', nextUrl));
-          // return new Response('Forbidden: Insufficient role', { status: 403 });
-        }
-      }
-
-      // 🚫 Already logged in but redirected to /auth.
-      if (isLoggedIn && isBlockedRoute) {
-        return Response.redirect(new URL('/dashboard', nextUrl));
-      }
-
-      return true;
-    },
+    //   return true;
+    // },
   },
 });

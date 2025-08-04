@@ -24,7 +24,7 @@ import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { SigninSchema } from '@/types/auth.type';
 
-const LoginPage = () => {
+const LoginForm = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -147,4 +147,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default LoginForm;
