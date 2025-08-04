@@ -15,7 +15,7 @@ import {
 import { Card, CardContent } from '@/components/ui/card';
 import { registerSchema } from '@/lib/zod';
 // import { signupCredentials } from '@/actions/authAction';
-import { Separator } from '@/components/ui/separator';
+// import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 // import GoogleAuth from '@/components/GoogleAuth';
 import { toast } from 'sonner';
@@ -24,8 +24,10 @@ import { RegisterSchema } from '@/types/auth.type';
 import { signupCredentials } from '@/actions/authAction';
 import { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 const RegisterForm = () => {
+  const t = useTranslations('AuthPage');
   const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
@@ -39,7 +41,7 @@ const RegisterForm = () => {
   });
 
   const onSubmit = async (data: RegisterSchema) => {
-    const id = toast.loading('Register account...');
+    const id = toast.loading(`${t('REGISTER-ACCOUNT')}`);
     const res = await signupCredentials({ data });
 
     toast.dismiss(id);
@@ -56,7 +58,7 @@ const RegisterForm = () => {
       return;
     }
 
-    toast.success('Account created successfully!');
+    toast.success(`${t('ACCOUNT-CREATED')}`);
     router.push('/auth/login');
   };
 
@@ -70,7 +72,7 @@ const RegisterForm = () => {
             <span className="text-xs text-muted-foreground">or</span>
             <Separator className="flex-1" />
           </div> */}
-          <h2 className="text-lg text-center">Create Account</h2>
+          <h2 className="text-lg text-center">{t('CREATE-ACCOUNT')}</h2>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
               <fieldset
@@ -82,7 +84,7 @@ const RegisterForm = () => {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Name :</FormLabel>
+                      <FormLabel>{t('NAME')} :</FormLabel>
                       <FormControl>
                         <Input
                           className="text-sm"
@@ -117,14 +119,14 @@ const RegisterForm = () => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>{t('PASSWORD')} :</FormLabel>
                       <FormControl>
                         <div className="relative">
                           <Input
                             {...field}
                             type={showPassword ? 'text' : 'password'}
                             placeholder={
-                              showPassword ? 'Type a password' : '••••••••'
+                              showPassword ? t('TYPE-PASSWORD') : '••••••••'
                             }
                             className="pr-10 text-sm"
                           />
@@ -148,12 +150,14 @@ const RegisterForm = () => {
                 />
 
                 <Button type="submit" className="w-full">
-                  {form.formState.isSubmitting ? 'Processing...' : 'Sign Up'}
+                  {form.formState.isSubmitting
+                    ? t('PROCCESSING')
+                    : t('SIGN-UP')}
                 </Button>
                 <p className="text-xs text-center text-muted-foreground">
-                  Already have an account?{' '}
+                  {t('HAVE-ACOUNT?')}{' '}
                   <Link href="/auth/login" className="text-sky-500 underline">
-                    Login here
+                    {t('LOGIN-HERE')}
                   </Link>
                 </p>
               </fieldset>

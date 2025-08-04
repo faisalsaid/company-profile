@@ -23,8 +23,11 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { SigninSchema } from '@/types/auth.type';
+import { useTranslations } from 'next-intl';
 
 const LoginForm = () => {
+  const t = useTranslations('AuthPage');
+
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -65,7 +68,7 @@ const LoginForm = () => {
             <span className="text-xs text-muted-foreground">or</span>
             <Separator className="flex-1" />
           </div> */}
-          <h2 className="text-lg text-center">Login :</h2>
+          <h2 className="text-lg text-center">{t('LOGIN')}</h2>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <fieldset
@@ -77,7 +80,7 @@ const LoginForm = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel>Email :</FormLabel>
                       <FormControl>
                         <Input
                           className="text-sm"
@@ -96,7 +99,7 @@ const LoginForm = () => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password :</FormLabel>
+                      <FormLabel>{t('PASSWORD')} :</FormLabel>
                       <FormControl>
                         <div className="relative">
                           <Input
@@ -127,15 +130,17 @@ const LoginForm = () => {
                 />
 
                 <Button type="submit" className="w-full">
-                  {form.formState.isSubmitting ? 'Processing...' : 'Sign In'}
+                  {form.formState.isSubmitting
+                    ? t('PROCCESSING')
+                    : t('SIGN-IN')}
                 </Button>
                 <p className="text-xs text-center text-muted-foreground">
-                  <span>{`Don't have an account yet? `}</span>
+                  <span>{`${t('DONT-HAVE-ACCOUNT?')} `}</span>
                   <Link
                     href="/auth/register"
                     className="text-sky-400 underline"
                   >
-                    Register here
+                    {t('REGISTER-HERE')}
                   </Link>
                 </p>
               </fieldset>

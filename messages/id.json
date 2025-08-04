@@ -1,6 +1,25 @@
 {
     "HomePage": {
-        "title": "Hallo Dunia!",
+        "title": "Hello world!",
         "about": "Go to the about page"
+    },
+    "AuthPage": {
+        "CREATE-ACCOUNT": "Buat Akun",
+        "LOGIN": "Masuk",
+        "NAME": "Nama",
+        "PASSWORD": "Kata Sandi",
+        "SIGN-UP": "Daftar",
+        "SIGN-IN": "Masuk",
+        "HAVE-ACOUNT?": "Sudah punya akun?",
+        "LOGIN-HERE": "Masuk di sini",
+        "DONT-HAVE-ACCOUNT?": "Belum punya akun?",
+        "REGISTER-HERE": "Daftar di sini",
+        "PROCCESSING": "Memporses...",
+        "LOGGING-IN": "Sedang masuk...",
+        "ERROR-CRENDETIALS": "Kredensial salah",
+        "LOGIN-SUCCESS": "Berhasil masuk!",
+        "REGISTER-ACCOUNT": "Mendaftarkan akun...",
+        "ACCOUNT-CREATED": "Akun berhasil dibuat!",
+        "TYPE-PASSWORD": "Ketikan kata sandi"
     }
 }

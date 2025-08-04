@@ -2,5 +2,24 @@
     "HomePage": {
         "title": "Hello world!",
         "about": "Go to the about page"
+    },
+    "AuthPage": {
+        "CREATE-ACCOUNT": "Create Account",
+        "LOGIN": "Login",
+        "NAME": "Name",
+        "PASSWORD": "Password",
+        "SIGN-UP": "Sign Up",
+        "SIGN-IN": "Sign In",
+        "HAVE-ACOUNT?": "Already have an account?",
+        "LOGIN-HERE": "Login here",
+        "DONT-HAVE-ACCOUNT?": "Don't have an account yet?",
+        "REGISTER-HERE": "Register here",
+        "PROCCESSING": "Proccessing...",
+        "LOGGING-IN": "Logging in...",
+        "ERROR-CRENDETIALS": "Error Credentials",
+        "LOGIN-SUCCESS": "Login success!",
+        "REGISTER-ACCOUNT": "Register account...",
+        "ACCOUNT-CREATED": "Account created successfully!",
+        "TYPE-PASSWORD": "Type a password"
     }
 }

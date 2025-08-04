@@ -6,7 +6,11 @@ const DashboardPage = async () => {
   if (!session) {
     redirect('/');
   }
-  return <div>Hallo, {session ? session.user.name : 'Guest'}</div>;
+  return (
+    <div>
+      <h1>Hallo, {session ? session.user.name : 'Guest'}</h1>;
+    </div>
+  );
 };
 
 export default DashboardPage;
