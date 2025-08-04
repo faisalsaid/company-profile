@@ -16,7 +16,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { registerSchema } from '@/lib/zod';
 // import { signupCredentials } from '@/actions/authAction';
 // import { Separator } from '@/components/ui/separator';
-import Link from 'next/link';
+// import Link from 'next/link';
 // import GoogleAuth from '@/components/GoogleAuth';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
@@ -25,6 +25,7 @@ import { signupCredentials } from '@/actions/authAction';
 import { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 
 const RegisterForm = () => {
   const t = useTranslations('AuthPage');

@@ -16,7 +16,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { loginSchema } from '@/lib/zod';
 // import GoogleAuth from './GoogleAuth';
 import { toast } from 'sonner';
@@ -24,6 +24,7 @@ import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { SigninSchema } from '@/types/auth.type';
 import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 
 const LoginForm = () => {
   const t = useTranslations('AuthPage');

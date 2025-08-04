@@ -8,11 +8,11 @@ const AuthLayout = async (props: {
   const { locale } = await props.params; // <-- Wajib await di Next 15
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen ">
       <div className="ml-auto w-fit p-4">
         <LocaleSwitcher currentLocale={locale} />
       </div>
-      <div className="flex items-center justify-center min-h-svh">
+      <div className="flex-1 flex items-center justify-center">
         {props.children}
       </div>
     </div>

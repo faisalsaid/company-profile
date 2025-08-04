@@ -14,12 +14,12 @@ const languages = [
   {
     value: 'id',
     label: 'ID',
-    icon: <span className="flag-icon flag-icon-id" />,
+    icon: <span className="flag-icon flag-icon-id rounded-[4px]" />,
   },
   {
     value: 'en',
     label: 'EN',
-    icon: <span className="flag-icon flag-icon-us" />,
+    icon: <span className="flag-icon flag-icon-us rounded-[4px]" />,
   },
 ];
 
