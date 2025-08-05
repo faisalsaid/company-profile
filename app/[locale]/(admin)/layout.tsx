@@ -1,5 +1,5 @@
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/app-sidebar';
+import { AppSidebar } from '@/app/[locale]/(admin)/_components/app-sidebar';
 
 import { cookies } from 'next/headers';
 import Navbar from './_components/Navbar';
