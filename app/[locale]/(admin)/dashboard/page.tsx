@@ -4,12 +4,12 @@ import { redirect } from 'next/navigation';
 
 const DashboardPage = async () => {
   const session = await auth();
-  if (!session) {
-    redirect('/');
-  }
+  // if (!session) {
+  //   redirect('/');
+  // }
   return (
-    <div>
-      <h1>Hallo, {session ? session.user.name : 'Guest'}</h1>;
+    <div className="flex items-center justify-center min-h-screen">
+      <h1>Hallo, {session ? session.user.name : 'Guest'}</h1>
     </div>
   );
 };

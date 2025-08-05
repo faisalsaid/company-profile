@@ -53,7 +53,7 @@ export default async function RootLayout(props: {
         >
           <SessionProvider session={session}>
             <NextIntlClientProvider locale={locale} messages={messages}>
-              <main>{props.children}</main>
+              {props.children}
             </NextIntlClientProvider>
           </SessionProvider>
           <Toaster richColors />
