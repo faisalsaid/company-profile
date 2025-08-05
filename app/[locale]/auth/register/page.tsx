@@ -1,5 +1,5 @@
 import { auth } from '@/auth';
-import RegisterForm from '@/components/auth/register-form';
+import RegisterForm from '@/app/[locale]/auth/_components/register-form';
 import { redirect } from 'next/navigation';
 
 const RegisterPage = async () => {

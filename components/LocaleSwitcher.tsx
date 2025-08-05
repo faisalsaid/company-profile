@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import { useLocale } from 'next-intl';
 import {
   Select,
   SelectContent,
@@ -23,9 +24,16 @@ const languages = [
   },
 ];
 
-export function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
+interface LocaleSwitcherProps {
+  currentLocale?: string; // optional
+}
+
+export function LocaleSwitcher({ currentLocale }: LocaleSwitcherProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const fallbackLocale = useLocale();
+
+  const activeLocale = currentLocale || fallbackLocale;
 
   const handleChange = (value: string) => {
     // Replace locale di URL
@@ -34,10 +42,10 @@ export function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
     router.push(segments.join('/'));
   };
 
-  const selectedLang = languages.find((lang) => lang.value === currentLocale);
+  const selectedLang = languages.find((lang) => lang.value === activeLocale);
 
   return (
-    <Select onValueChange={handleChange} defaultValue={currentLocale}>
+    <Select onValueChange={handleChange} defaultValue={activeLocale}>
       <SelectTrigger>
         <SelectValue placeholder="Select language">
           <div className="flex items-center gap-2">
