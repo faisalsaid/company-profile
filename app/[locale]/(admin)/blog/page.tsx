@@ -3,9 +3,9 @@ import { redirect } from 'next/navigation';
 
 const BlogPage = async () => {
   const session = await auth();
-  if (!session) {
-    redirect('/');
-  }
+  // if (!session) {
+  //   redirect('/');
+  // }
   return <div>BlogPage</div>;
 };
 
