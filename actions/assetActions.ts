@@ -48,3 +48,60 @@ export const saveMediaAssetInfo = async (dataAsset: MediaAssetInput) => {
     throw error;
   }
 };
+
+// GET ALL ASSET
+interface GetAllAssetsProps {
+  search?: string;
+  uploadedBy?: string;
+  sortBy?: string;
+  sortOrder?: 'asc' | 'desc';
+  page?: number;
+  pageSize?: number;
+}
+
+export async function getAllAssets({
+  search,
+  uploadedBy,
+  sortBy = 'uploadedAt', // Ganti default sortBy ke field yang valid
+  sortOrder = 'desc',
+  page = 1,
+  pageSize = 10,
+}: GetAllAssetsProps) {
+  const allowedSortFields = ['uploadedAt', 'title', 'caption']; // Tambah sesuai field model
+  const sortField = allowedSortFields.includes(sortBy) ? sortBy : 'uploadedAt';
+
+  const where = {
+    ...(search && {
+      OR: [{ title: { contains: search } }, { caption: { contains: search } }],
+    }),
+    ...(uploadedBy && { uploadedBy }),
+  };
+
+  const [assets, total] = await Promise.all([
+    prisma.mediaAsset.findMany({
+      where,
+      take: pageSize,
+      skip: (page - 1) * pageSize,
+      include: {
+        uploader: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
+      },
+      orderBy: {
+        [sortField]: sortOrder,
+      },
+    }),
+    prisma.mediaAsset.count({ where }),
+  ]);
+
+  return {
+    assets,
+    total,
+    totalPages: Math.ceil(total / pageSize),
+    page,
+    limit: pageSize,
+  };
+}
