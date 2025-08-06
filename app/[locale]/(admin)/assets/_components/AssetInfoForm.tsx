@@ -38,7 +38,7 @@ const AssetInfoForm = ({
         asset.uploader.id === session.user.id),
   );
 
-  console.log(session);
+  // console.log(session);s
 
   const router = useRouter();
 
