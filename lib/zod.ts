@@ -39,3 +39,14 @@ export const UpdateAssetInfoSchema = z.object({
   title: z.string().optional(),
   caption: z.string().optional(),
 });
+
+// POST SCEMA
+export const postFormSchema = z.object({
+  authorId: z.string().min(1),
+  title: z.string().min(3, 'Title must be most then 3 character'),
+  slug: z.string().min(1),
+  summary: z.string().optional(),
+  content: z.string().min(1),
+  status: z.enum(['DRAFT', 'PUBLISHED', 'REVIEW', 'ARCHIVED']),
+  media: z.array(z.object({ id: z.string(), role: z.string() })),
+});

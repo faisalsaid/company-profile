@@ -1,11 +1,7 @@
-import React from 'react';
-import AllAssetFilterBar from './_components/AllAssetFilterBar';
 import AllAssetGalery from './_components/AllAssetGalery';
 import UploadImage from './_components/UploadImage';
-import { getAllAssets } from '@/actions/assetActions';
 import AssetFIlterBar from './_components/AssetFIlterBar';
 import prisma from '@/lib/prisma';
-import { int } from 'zod';
 import { redirect } from 'next/navigation';
 
 interface ParamsProps {
