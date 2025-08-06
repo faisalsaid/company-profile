@@ -32,3 +32,10 @@ export const addAssetSchema = z.object({
   height: z.number().optional(),
   uploadedBy: z.string(),
 });
+
+// ASSET INFO SCHEMA
+export const UpdateAssetInfoSchema = z.object({
+  id: z.string().min(1),
+  title: z.string().optional(),
+  caption: z.string().optional(),
+});

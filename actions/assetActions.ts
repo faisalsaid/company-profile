@@ -4,7 +4,7 @@ import prisma from '@/lib/prisma';
 import { z } from 'zod';
 import cloudinary from '@/lib/cloudinary';
 import { MediaAsset } from '@prisma/client';
-import { addAssetSchema } from '@/lib/zod';
+import { addAssetSchema, UpdateAssetInfoSchema } from '@/lib/zod';
 
 type MediaAssetInput = Partial<
   Omit<MediaAsset, 'id' | 'uploadedAt' | 'uploader' | 'usages'>
@@ -105,3 +105,84 @@ export async function getAllAssets({
     limit: pageSize,
   };
 }
+
+// HANDLE UPDATE ASSET INFO
+type UpdateMediaAssetProps = z.infer<typeof UpdateAssetInfoSchema>;
+export const updateMediaAssetInfo = async (asset: UpdateMediaAssetProps) => {
+  // console.log(asset.id, asset.title, asset.caption);
+  if (!asset.id) {
+    throw new Error('Asset ID is required');
+  }
+
+  try {
+    const updated = await prisma.mediaAsset.update({
+      where: {
+        id: asset.id,
+      },
+      data: {
+        title: asset.title,
+        caption: asset.caption,
+      },
+    });
+
+    return {
+      success: true,
+      data: updated,
+    };
+  } catch (error) {
+    console.error('Failed to update media asset:', error);
+    return {
+      success: false,
+      error: 'Failed to update asset info',
+    };
+  }
+};
+
+// DELETE CLOUDINARY ASSET
+
+type DeleteMediaAssetProps = {
+  public_id: string;
+  id: string;
+};
+
+export const deleteMediaAsset = async ({
+  public_id,
+  id,
+}: DeleteMediaAssetProps) => {
+  // console.log('deleteMediaAsset =>>', public_id, id);
+
+  if (!public_id || !id) {
+    return { success: false, error: 'publicId is required' };
+  }
+
+  try {
+    // Hapus dari Cloudinary
+    const cloudinaryRes = await cloudinary.uploader.destroy(public_id);
+
+    if (cloudinaryRes.result !== 'ok' && cloudinaryRes.result !== 'not found') {
+      return {
+        success: false,
+        error: `Cloudinary error: ${cloudinaryRes.result}`,
+      };
+    }
+
+    const media = await prisma.mediaAsset.findUnique({ where: { id } });
+    // console.log('Media in DB:', media);
+
+    // Hapus dari DB
+    const deleted = await prisma.mediaAsset.delete({
+      where: { id },
+    });
+
+    return { success: true, data: deleted };
+  } catch (error: any) {
+    console.error('Delete error:', error);
+
+    // handle error Prisma
+    if (error.code === 'P2025') {
+      return { success: false, error: 'Asset not found in database' };
+    }
+
+    return { success: false, error: 'Unexpected error during deletion' };
+  }
+};
