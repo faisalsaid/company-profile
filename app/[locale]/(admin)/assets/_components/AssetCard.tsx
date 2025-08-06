@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import AssetInfoForm from './AssetInfoForm';
+import { ImageDetailDialog } from './ImageDetailDialog';
 
 const AssetCard = ({
   asset,
@@ -27,6 +28,14 @@ const AssetCard = ({
         width={asset.width!}
       />
       <div className="absolute inset-0 flex items-center justify-center bg-black/20 text-white opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 gap-2">
+        <ImageDetailDialog
+          asset={asset}
+          trigger={
+            <Button size="sm" variant="secondary">
+              View
+            </Button>
+          }
+        />
         <Sheet>
           <SheetTrigger asChild>
             <Button size="sm">Info</Button>
