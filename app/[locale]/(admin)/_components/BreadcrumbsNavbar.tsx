@@ -14,7 +14,7 @@ const BreadcrumbsNavbar = () => {
   const pathname = usePathname(); // example: '/dashboard/settings
   const segments = pathname.split('/').filter(Boolean); // ['dashboard', 'settings']
 
-  console.log(segments);
+  // console.log(segments);
 
   return (
     <Breadcrumb>
