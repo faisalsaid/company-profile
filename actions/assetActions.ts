@@ -186,3 +186,21 @@ export const deleteMediaAsset = async ({
     return { success: false, error: 'Unexpected error during deletion' };
   }
 };
+
+export const getAllMediaAsset = async (): Promise<
+  { success: true; data: MediaAsset[] } | { success: false; error: string }
+> => {
+  try {
+    const allAsset = await prisma.mediaAsset.findMany({
+      orderBy: {
+        uploadedAt: 'desc',
+      },
+    });
+    return { success: true, data: allAsset };
+  } catch (error: any) {
+    return {
+      success: false,
+      error: error.message || 'Unknown error',
+    };
+  }
+};

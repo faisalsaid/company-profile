@@ -31,6 +31,7 @@ import { Separator } from '@/components/ui/separator';
 import { createArticle } from '@/actions/articleAction';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import AssetPicker from './AssetPicker';
 
 const postStatus: string[] = ['DRAFT', 'REVIEW', 'PUBLISHED', 'ARCHIVED'];
 
@@ -237,7 +238,7 @@ const ArticelForm = ({ initialData, session }: Props) => {
             </div>
           </div>
           <div className="bg-primary-foreground p-4 rounded-lg ">
-            {/* <FormField
+            <FormField
               disabled={isPending}
               control={form.control}
               name="media"
@@ -252,7 +253,7 @@ const ArticelForm = ({ initialData, session }: Props) => {
                   <FormMessage />
                 </FormItem>
               )}
-            /> */}
+            />
           </div>
 
           <div className="bg-primary-foreground p-4 rounded-lg space-y-4 ">
