@@ -2,6 +2,7 @@
 
 import prisma from '@/lib/prisma';
 import { postFormSchema } from '@/lib/zod';
+import { GetArticleQuery } from '@/types/article.type';
 import z from 'zod';
 
 // HANDLE CREATE ARTICLE
@@ -50,6 +51,26 @@ export async function createArticle(data: z.infer<typeof postFormSchema>) {
     console.error('CREATE POST ERROR:', error);
     return {
       message: 'Failed to create post',
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
+// GET POST by slug
+export async function getPostBySlug(slug: string) {
+  console.log(slug);
+
+  try {
+    const post = await prisma.article.findUnique({
+      where: { slug },
+      ...GetArticleQuery,
+    });
+
+    return post;
+  } catch (error) {
+    console.error('GET POST ERROR:', error);
+    return {
+      message: 'Failed to get post',
       error: error instanceof Error ? error.message : String(error),
     };
   }
