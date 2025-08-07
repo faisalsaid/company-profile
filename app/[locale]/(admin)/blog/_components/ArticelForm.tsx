@@ -28,7 +28,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import RitchTextEditor from '@/components/RitchTextEditor';
 import { Separator } from '@/components/ui/separator';
-import { createArticle } from '@/actions/articleAction';
+import { createArticle, updateArticle } from '@/actions/articleAction';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import AssetPicker from './AssetPicker';
@@ -96,23 +96,23 @@ const ArticelForm = ({ initialData, session }: Props) => {
 
   const onSubmit = async (data: z.infer<typeof postFormSchema>) => {
     if (initialData) {
-      // startTransition(() => {
-      //   updateArticle(data)
-      //     .then((res) => {
-      //       if (res?.message) {
-      //         setError(res.message);
-      //         toast.error(res.message);
-      //       } else {
-      //         router.push(`/posts/${data.slug}`);
-      //         toast.success('Article updated!');
-      //       }
-      //     })
-      //     .catch(() => {
-      //       setError('Something went wrong');
-      //       console.log(error);
-      //       toast.error('Something went wrong');
-      //     });
-      // });
+      startTransition(() => {
+        updateArticle(data)
+          .then((res) => {
+            if (res?.message) {
+              setError(res.message);
+              toast.error(res.message);
+            } else {
+              router.push(`/blog/${data.slug}`);
+              toast.success('Article updated!');
+            }
+          })
+          .catch(() => {
+            setError('Something went wrong');
+            console.log(error);
+            toast.error('Something went wrong');
+          });
+      });
     } else {
       startTransition(() => {
         createArticle(data)

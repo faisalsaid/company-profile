@@ -75,3 +75,74 @@ export async function getPostBySlug(slug: string) {
     };
   }
 }
+
+// handle UPDATE POST
+type UpdateArticlePayload = z.infer<typeof postFormSchema> & { slug: string };
+
+export async function updateArticle(data: UpdateArticlePayload) {
+  // console.log('updateArticle ==>>', data);
+
+  const { slug, title, content, summary, status, authorId } = data;
+
+  try {
+    const existingArticle = await prisma.article.findUnique({
+      where: { slug },
+      select: { id: true },
+    });
+
+    if (!existingArticle) {
+      throw new Error('Article not found.');
+    }
+
+    const articleId = existingArticle.id;
+
+    const uniqueMedia = new Set();
+    for (const m of data.media) {
+      const key = `${m.id}:${m.role}`;
+      if (uniqueMedia.has(key)) {
+        throw new Error(`Duplicate media-role pair: ${key}`);
+      }
+      uniqueMedia.add(key);
+    }
+
+    const mediaOps = [
+      prisma.articleMedia.deleteMany({
+        where: { articleId },
+      }),
+
+      ...data.media.map((m) =>
+        prisma.articleMedia.create({
+          data: {
+            articleId,
+            mediaAssetId: m.id,
+            role: m.role,
+          },
+        }),
+      ),
+    ];
+
+    // Run the transaction
+    await prisma.$transaction([
+      // Update the article itself
+      prisma.article.update({
+        where: { id: articleId },
+        data: {
+          title,
+          content,
+          summary,
+          status,
+          authorId,
+          updatedAt: new Date(),
+          publishedAt: status === 'PUBLISHED' ? new Date() : null,
+        },
+      }),
+
+      ...mediaOps,
+    ]);
+
+    return { success: true };
+  } catch (error) {
+    console.error('Update article fail:', error);
+    return { success: false, message: 'Update article fail' };
+  }
+}
