@@ -13,7 +13,6 @@ const ArticlePage = async ({ params }: PostDetailsProps) => {
   const { slug } = await params;
 
   const article = await getPostBySlug(slug);
-  console.log(article);
 
   if (!article || 'error' in article) {
     return <div>Article not found</div>;

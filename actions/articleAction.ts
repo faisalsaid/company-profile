@@ -1,9 +1,28 @@
 'use server';
 
+import { auth } from '@/auth';
 import prisma from '@/lib/prisma';
 import { postFormSchema } from '@/lib/zod';
 import { GetArticleQuery } from '@/types/article.type';
 import z from 'zod';
+
+export async function validateAdminUser() {
+  const session = await auth();
+  const user = session?.user;
+
+  if (!user?.id) throw new Error('Unauthorized');
+
+  const dbUser = await prisma.user.findUnique({
+    where: { id: user.id },
+    select: { role: true },
+  });
+
+  if (!dbUser || dbUser.role === 'USER') {
+    throw new Error('Forbidden: Access denied');
+  }
+
+  return user;
+}
 
 // HANDLE CREATE ARTICLE
 export async function createArticle(data: z.infer<typeof postFormSchema>) {
@@ -146,3 +165,27 @@ export async function updateArticle(data: UpdateArticlePayload) {
     return { success: false, message: 'Update article fail' };
   }
 }
+
+export const softDelteArticle = async (articleId: string) => {
+  try {
+    await validateAdminUser();
+    // Verify that the article exists and is active (not soft-deleted)
+    const existingArticle = await prisma.article.findUnique({
+      where: { id: articleId },
+    });
+
+    if (!existingArticle || existingArticle.deletedAt) {
+      return null; // Resource not found or has already been deleted
+    }
+
+    const updatedArticle = await prisma.article.update({
+      where: { id: articleId },
+      data: { deletedAt: new Date() },
+    });
+
+    return updatedArticle;
+  } catch (error) {
+    console.error('Failed to soft delete article:', error);
+    throw error;
+  }
+};
