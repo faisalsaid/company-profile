@@ -129,15 +129,24 @@ const LoginForm = () => {
                 )}
               />
 
+              <div className="flex justify-end">
+                <Link
+                  href="/auth/forgot-password"
+                  className="text-xs text-sky-500 hover:underline"
+                >
+                  {t('FORGOT_PASSWORD')}
+                </Link>
+              </div>
+
               <Button type="submit" className="w-full">
                 {form.formState.isSubmitting ? t('PROCCESSING') : t('SIGN-IN')}
               </Button>
-              <p className="text-xs text-center text-muted-foreground">
+              {/* <p className="text-xs text-center text-muted-foreground">
                 <span>{`${t('DONT-HAVE-ACCOUNT?')} `}</span>
                 <Link href="/auth/register" className="text-sky-400 underline">
                   {t('REGISTER-HERE')}
                 </Link>
-              </p>
+              </p> */}
             </fieldset>
           </form>
         </Form>
