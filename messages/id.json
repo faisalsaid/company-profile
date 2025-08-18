@@ -20,6 +20,8 @@
         "LOGIN-SUCCESS": "Berhasil masuk!",
         "REGISTER-ACCOUNT": "Mendaftarkan akun...",
         "ACCOUNT-CREATED": "Akun berhasil dibuat!",
-        "TYPE-PASSWORD": "Ketikan kata sandi"
+        "TYPE-PASSWORD": "Ketikan kata sandi",
+        "PLEASE_CREATE_PASSWORD": "Silakan buat kata sandi yang aman untuk menyelesaikan pengaturan akun Anda.",
+        "SET_PASSWORD": "Atur Kata Sandi"
     }
 }

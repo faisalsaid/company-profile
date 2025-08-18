@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import {
   Select,
@@ -31,15 +31,24 @@ interface LocaleSwitcherProps {
 export function LocaleSwitcher({ currentLocale }: LocaleSwitcherProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const fallbackLocale = useLocale();
 
   const activeLocale = currentLocale || fallbackLocale;
 
   const handleChange = (value: string) => {
-    // Replace locale di URL
+    // Split path jadi segmen
     const segments = pathname.split('/');
     segments[1] = value; // Ganti locale di segmen pertama
-    router.push(segments.join('/'));
+
+    // Ambil query params
+    const queryString = searchParams.toString();
+
+    // Push ke router dengan query
+    const newUrl = `${segments.join('/')}${
+      queryString ? `?${queryString}` : ''
+    }`;
+    router.push(newUrl);
   };
 
   const selectedLang = languages.find((lang) => lang.value === activeLocale);

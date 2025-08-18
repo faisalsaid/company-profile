@@ -106,7 +106,7 @@ const LoginForm = () => {
                           {...field}
                           type={showPassword ? 'text' : 'password'}
                           placeholder={
-                            showPassword ? 'Type a password' : '••••••••'
+                            showPassword ? t('TYPE-PASSWORD') : '••••••••'
                           }
                           className="pr-10 text-sm"
                         />

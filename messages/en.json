@@ -20,6 +20,8 @@
         "LOGIN-SUCCESS": "Login success!",
         "REGISTER-ACCOUNT": "Register account...",
         "ACCOUNT-CREATED": "Account created successfully!",
-        "TYPE-PASSWORD": "Type a password"
+        "TYPE-PASSWORD": "Type a password",
+        "PLEASE_CREATE_PASSWORD": "Please create a secure password to complete your account setup.",
+        "SET_PASSWORD": "Set Password"
     }
 }

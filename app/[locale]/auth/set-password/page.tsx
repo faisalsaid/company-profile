@@ -14,15 +14,15 @@ export default async function SetPasswordPage({
     return <div>Invalid or missing token</div>;
   }
 
-  const record = await prisma.verificationToken.findFirst({
-    where: { token },
-  });
+  // const record = await prisma.verificationToken.findFirst({
+  //   where: { token },
+  // });
 
-  console.log('RECORD', record);
+  // console.log('RECORD', record);
 
-  if (!record || record.expires < new Date()) {
-    return <div>Token invalid or expired</div>;
-  }
+  // if (!record || record.expires < new Date()) {
+  //   return <div>Token invalid or expired</div>;
+  // }
 
   return (
     <div>
