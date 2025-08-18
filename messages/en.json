@@ -22,6 +22,11 @@
         "ACCOUNT-CREATED": "Account created successfully!",
         "TYPE-PASSWORD": "Type a password",
         "PLEASE_CREATE_PASSWORD": "Please create a secure password to complete your account setup.",
-        "SET_PASSWORD": "Set Password"
+        "SET_PASSWORD": "Set Password",
+        "FORGOT_PASSWORD": "Forgot Password",
+        "SEND_RESET_LINK": "Send Reset Link",
+        "INVALID_EMAIL": "Please enter a valid email address",
+        "SEND_IF_EMAIL_EXIST": "If your email is registered, a password reset link has been sent.",
+        "RESEND": "Resend"
     }
 }
