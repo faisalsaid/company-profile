@@ -19,6 +19,7 @@ import { useState } from 'react';
 import { webTitle } from '@/lib/staticData';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
+import { forgotPasswordAction } from '../_lib/auth.actions';
 
 export default function ForgotPasswordPage() {
   const t = useTranslations('AuthPage');
@@ -39,11 +40,10 @@ export default function ForgotPasswordPage() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      // TODO: panggil server action (forgotPasswordAction)
-      console.log(values);
+      await forgotPasswordAction(values.email);
       setSubmitted(true);
     } catch (err) {
-      console.error(err);
+      console.error('Forgot password error:', err);
     }
   }
 
