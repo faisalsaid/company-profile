@@ -24,6 +24,8 @@ model User {
   articles      Article[]      @relation("AuthorArticles")
   uploadedMedia MediaAsset[] 
  
+  passwordResetTokens PasswordResetToken[]   // reset passw relation
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -83,6 +85,20 @@ model Authenticator {
   @@id([userId, credentialID])
 }
 
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String
+  tokenHash String   // simpan hash dari raw token
+  expiresAt DateTime
+  usedAt    DateTime?
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
 
 
 // ---------- CATEGORY ----------
