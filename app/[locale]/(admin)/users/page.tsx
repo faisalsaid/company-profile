@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/navigation';
 import { Plus } from 'lucide-react';
+import CreateUserForm from './_components/CreateUserForm';
 
 const UsersPage = () => {
   return (
@@ -8,11 +9,7 @@ const UsersPage = () => {
       <div className="flex items-center justify-between bg-primary-foreground p-2 rounded-xl">
         <h2>All User</h2>
         <div>
-          <Link href={'/users/create'}>
-            <Button size={'sm'}>
-              <Plus /> Add User
-            </Button>
-          </Link>
+          <CreateUserForm />
         </div>
       </div>
       <div className="bg-primary-foreground p-4 rounded-xl space-y-4">

@@ -32,6 +32,8 @@ export default async function RootLayout(props: {
 
   const session = await auth();
 
+  console.log('CURENT USER', session?.user);
+
   // Handle error jika file locale tidak ada
   let messages;
   try {
@@ -56,7 +58,7 @@ export default async function RootLayout(props: {
               {props.children}
             </NextIntlClientProvider>
           </SessionProvider>
-          <Toaster richColors />
+          <Toaster richColors position="top-center" />
         </ThemeProvider>
       </body>
     </html>
