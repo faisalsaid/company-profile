@@ -20,10 +20,10 @@ export async function sendPasswordResetEmail(
     to,
     subject: 'Reset Password',
     html: `
-      <p>Anda meminta reset password.</p>
-      <p>Klik link berikut untuk mengatur password baru (berlaku 1 jam):</p>
-      <p><a href="${resetUrl}">${resetUrl}</a></p>
-      <p>Abaikan email ini jika Anda tidak meminta reset.</p>
-    `,
+        <p>You requested a password reset.</p>
+        <p>Click the link below to set a new password (valid for 1 hour):</p>
+        <p><a href="${resetUrl}">${resetUrl}</a></p>
+        <p>If you did not request a reset, please ignore this email.</p>
+`,
   });
 }

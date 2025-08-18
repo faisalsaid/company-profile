@@ -27,6 +27,14 @@
         "SEND_RESET_LINK": "Kirim Link Reset",
         "INVALID_EMAIL": "Mohon masukkan email yang valid",
         "SEND_IF_EMAIL_EXIST": "Jika email terdaftar, kami telah mengirimkan link untuk reset password.",
-        "RESEND": "Kirim Ulang"
+        "RESEND": "Kirim Ulang",
+        "VERIFY_TOKEN": "Memeriksa token...",
+        "LINK_INVALID_EXPIRED": "Link tidak valid / kadaluarsa",
+        "REORDER_RESET_PASS_LINK": "Silakan minta ulang link reset password.",
+        "BACK": "Kembali",
+        "CREATE_NEW_PASS": "Atur Kata Sandi Baru",
+        "NEW_PASS": "Kata sandi Baru",
+        "SAVE_PASS": "Simpan Kata Sandi",
+        "PASSWORD_RESET_SUCCESS": "Password berhasil diubah, silakan login dengan password baru."
     }
 }

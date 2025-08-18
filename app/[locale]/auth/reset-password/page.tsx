@@ -20,18 +20,26 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
 // 👉 Import server action (nanti kita buat)
 import { resetPasswordAction, validateResetToken } from '../_lib/auth.actions';
+import { useTranslations } from 'next-intl';
+import { Eye, EyeOff } from 'lucide-react';
+import { Link } from '@/i18n/navigation';
+import { webTitle } from '@/lib/staticData';
 
-const schema = z
-  .object({
-    password: z.string().min(8, 'Password minimal 8 karakter'),
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Konfirmasi password tidak cocok',
-    path: ['confirmPassword'],
-  });
+const schema = z.object({
+  password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters')
+    .regex(/[A-Z]/, 'Must contain uppercase letter')
+    .regex(/[a-z]/, 'Must contain lowercase letter')
+    .regex(/[0-9]/, 'Must contain number')
+    .regex(/[^A-Za-z0-9]/, 'Must contain special character')
+    .max(32, 'Password cannot be longer than 32 characters.'),
+});
 
 export default function ResetPasswordPage() {
+  const t = useTranslations('AuthPage');
+  const [showPassword, setShowPassword] = useState(false);
+
   const searchParams = useSearchParams();
   const router = useRouter();
   const token = searchParams.get('token');
@@ -41,7 +49,7 @@ export default function ResetPasswordPage() {
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
-    defaultValues: { password: '', confirmPassword: '' },
+    defaultValues: { password: '' },
   });
 
   // 🔹 Cek validasi token di server
@@ -61,14 +69,14 @@ export default function ResetPasswordPage() {
     if (!token || !uid) return;
     try {
       await resetPasswordAction(uid, token, values.password);
-      router.push('/login?reset=success');
+      router.push('/auth/login?reset=success');
     } catch (err) {
       console.error('Reset password error:', err);
     }
   }
 
   if (isValid === null) {
-    return <p className="text-center p-6">Memeriksa token...</p>;
+    return <p className="text-center p-6">{t('VERIFY_TOKEN')}</p>;
   }
 
   if (isValid === false) {
@@ -77,13 +85,13 @@ export default function ResetPasswordPage() {
         <Card className="p-6 max-w-md w-full">
           <CardHeader>
             <CardTitle className="text-center text-xl text-red-600">
-              Link tidak valid / kadaluarsa
+              {t('LINK_INVALID_EXPIRED')}
             </CardTitle>
           </CardHeader>
           <CardContent className="text-center space-y-2">
-            <p>Silakan minta ulang link reset password.</p>
-            <Button onClick={() => router.push('/forgot-password')}>
-              Kembali
+            <p>{t('REORDER_RESET_PASS_LINK')}</p>
+            <Button onClick={() => router.push('/auth/forgot-password')}>
+              {t('BACK')}
             </Button>
           </CardContent>
         </Card>
@@ -92,11 +100,16 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
+    <div className=" min-w-72 space-y-6 ">
+      <div>
+        <Link href={'/'}>
+          <h1 className="text-4xl text-center">{webTitle}</h1>
+        </Link>
+      </div>
       <Card className="w-full max-w-md shadow-lg rounded-2xl">
         <CardHeader>
           <CardTitle className="text-center text-xl">
-            Atur Password Baru
+            {t('CREATE_NEW_PASS')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -107,30 +120,30 @@ export default function ResetPasswordPage() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password Baru</FormLabel>
+                    <FormLabel>{t('PASSWORD')}</FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="••••••••"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="confirmPassword"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Konfirmasi Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="••••••••"
-                        {...field}
-                      />
+                      <div className="relative">
+                        <Input
+                          {...field}
+                          type={showPassword ? 'text' : 'password'}
+                          placeholder={
+                            showPassword ? t('TYPE-PASSWORD') : '••••••••'
+                          }
+                          className="pr-10 text-sm"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute inset-y-0 right-0 px-3 flex items-center text-muted-foreground hover:cursor-pointer"
+                          tabIndex={-1}
+                        >
+                          {showPassword ? (
+                            <EyeOff size={18} />
+                          ) : (
+                            <Eye size={18} />
+                          )}
+                        </button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -138,7 +151,7 @@ export default function ResetPasswordPage() {
               />
 
               <Button type="submit" className="w-full">
-                Simpan Password
+                {t('SAVE_PASS')}
               </Button>
             </form>
           </Form>

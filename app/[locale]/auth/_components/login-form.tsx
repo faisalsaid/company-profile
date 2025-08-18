@@ -11,26 +11,27 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-// import { Separator } from '@/components/ui/separator';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Eye, EyeOff } from 'lucide-react';
-import { useState } from 'react';
-// import Link from 'next/link';
+import { Check, Eye, EyeOff } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { loginSchema } from '@/lib/zod';
-// import GoogleAuth from './GoogleAuth';
 import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { SigninSchema } from '@/types/auth.type';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 
+import { Alert, AlertDescription } from '@/components/ui/alert';
+
 const LoginForm = () => {
   const t = useTranslations('AuthPage');
 
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [showPassword, setShowPassword] = useState(false);
+  const [showResetSuccess, setShowResetSuccess] = useState(false);
 
   const form = useForm<SigninSchema>({
     resolver: zodResolver(loginSchema),
@@ -39,6 +40,15 @@ const LoginForm = () => {
       password: '',
     },
   });
+
+  useEffect(() => {
+    if (searchParams.get('reset') === 'success') {
+      setShowResetSuccess(true);
+
+      // opsional: hapus query param biar URL bersih
+      router.replace('/auth/login');
+    }
+  }, [searchParams, router]);
 
   const onSubmit = async (data: SigninSchema) => {
     const toastId = toast.loading('Logging in...');
@@ -69,6 +79,18 @@ const LoginForm = () => {
             <Separator className="flex-1" />
           </div> */}
         <h2 className="text-lg text-center">{t('LOGIN')}</h2>
+
+        {showResetSuccess && (
+          <Alert
+            variant="default"
+            className="mb-4 bg-green-500/10 border-green-500 "
+          >
+            <AlertDescription className="text-green-800 flex items-center justify-center">
+              <Check />
+              <span>{t('PASSWORD_RESET_SUCCESS')}</span>
+            </AlertDescription>
+          </Alert>
+        )}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
             <fieldset

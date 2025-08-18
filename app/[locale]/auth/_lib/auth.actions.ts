@@ -127,7 +127,7 @@ export async function resetPasswordAction(
     });
 
     if (!resetToken || !resetToken.user) {
-      throw new Error('Token tidak valid atau sudah kadaluarsa');
+      throw new Error('The token is invalid or has expired.');
     }
 
     // 🔹 Hash password baru
@@ -154,18 +154,18 @@ export async function resetPasswordAction(
     await transporter.sendMail({
       from: `"Support App" <${process.env.SMTP_USER}>`,
       to: resetToken.user.email,
-      subject: 'Password akun Anda telah diubah',
-      text: `Halo ${
+      subject: 'Your account password has been changed',
+      text: `Hello ${
         resetToken.user.name || ''
-      },\n\nPassword akun Anda berhasil diperbarui. Jika ini bukan Anda, segera lakukan reset password kembali.`,
+      },\n\nYour account password has been successfully updated. If this wasn’t you, please reset your password immediately.`,
       html: `
-        <p>Halo ${resetToken.user.name || 'User'},</p>
-        <p>Password akun Anda <b>berhasil diperbarui</b>.</p>
-        <p>Jika ini bukan Anda, segera lakukan <a href="${
+        <p>Hello ${resetToken.user.name || 'User'},</p>
+        <p>Your account password has been <b>successfully updated</b>.</p>
+        <p>If this wasn’t you, please <a href="${
           process.env.NEXT_PUBLIC_APP_URL
-        }/forgot-password">reset password kembali</a>.</p>
+        }/auth/forgot-password">reset your password</a> immediately.</p>
         <br/>
-        <p>Terima kasih,</p>
+        <p>Thank you,</p>
         <p><b>Support App</b></p>
       `,
     });

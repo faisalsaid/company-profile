@@ -27,6 +27,14 @@
         "SEND_RESET_LINK": "Send Reset Link",
         "INVALID_EMAIL": "Please enter a valid email address",
         "SEND_IF_EMAIL_EXIST": "If your email is registered, a password reset link has been sent.",
-        "RESEND": "Resend"
+        "RESEND": "Resend",
+        "VERIFY_TOKEN": "Verifying token...",
+        "LINK_INVALID_EXPIRED": "The link is invalid or has expired",
+        "REORDER_RESET_PASS_LINK": "Kindly request a new reset link.",
+        "BACK": "Go back",
+        "CREATE_NEW_PASS": "Create New Password",
+        "NEW_PASS": "New Password",
+        "SAVE_PASS": "Save Password",
+        "PASSWORD_RESET_SUCCESS": "Your password has been updated. Please log in with your new password."
     }
 }
