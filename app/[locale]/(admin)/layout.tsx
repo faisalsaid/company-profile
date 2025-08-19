@@ -23,7 +23,7 @@ export default async function Layout({
     <SidebarProvider defaultOpen={defaultOpen}>
       <AppSidebar />
       <SidebarInset>
-        <Navbar />
+        <Navbar data={session} />
         <main className="p-4">{children}</main>
       </SidebarInset>
     </SidebarProvider>
