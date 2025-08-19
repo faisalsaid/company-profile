@@ -19,6 +19,7 @@ import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useRouter } from '@/i18n/navigation';
 
 const schema = z.object({
   password: z
@@ -36,6 +37,8 @@ export default function SetPasswordForm({ token }: { token: string }) {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const router = useRouter();
+
   const form = useForm<{ password: string }>({
     resolver: zodResolver(schema),
     defaultValues: { password: '' },
@@ -44,6 +47,7 @@ export default function SetPasswordForm({ token }: { token: string }) {
   async function onSubmit(values: { password: string }) {
     const res = await setPassword({ token, password: values.password });
     if (res.ok) {
+      router.push('/auth/login?reset=success');
       toast.success('Password updated! You can now log in.');
     } else {
       toast.error(res.error ?? 'Failed to update password.');
