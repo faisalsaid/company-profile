@@ -1,7 +1,14 @@
+import { auth } from '@/auth';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 
-const ProfilePage = () => {
+const ProfilePage = async () => {
+  const session = await auth();
+
+  if (!session) {
+    return <div>Not User</div>;
+  }
+
   return (
     <div className="space-y-6">
       <div>
@@ -11,9 +18,13 @@ const ProfilePage = () => {
             <div className="bg-muted w-28 aspect-square rounded-full shadow"></div>
           </div>
           <div className="text-center space-y-1 text-muted-foreground">
-            <p className="text-2xl font-semibold text-primary">Dave C. Brown</p>
-            <p className="">dave@email.com</p>
-            <p className=" text-sm">Admin</p>
+            <p className="text-2xl font-semibold text-primary">
+              {session.user.name}
+            </p>
+            <p className="">{session.user.email}</p>
+            <p className=" text-sm capitalize">
+              {session.user.role.toLocaleLowerCase()}
+            </p>
             <Button>Edit Profile</Button>
           </div>
         </div>
