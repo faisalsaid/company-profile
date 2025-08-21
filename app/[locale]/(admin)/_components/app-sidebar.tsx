@@ -14,8 +14,17 @@ import {
 import { Link } from '@/i18n/navigation';
 import NavMain from './nav-main';
 import { adminMenuList } from '../_lib/listSidebar';
+import { Session } from 'next-auth';
 
-export function AppSidebar() {
+export function AppSidebar({ session }: { session: Session | null }) {
+  const protectRoute = ['/users', '/settings'];
+
+  const isAdmin = session?.user.role === 'ADMIN';
+
+  const menuList = adminMenuList.filter((item) =>
+    isAdmin ? true : !protectRoute.includes(item.url),
+  );
+
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="py-4">
@@ -33,7 +42,7 @@ export function AppSidebar() {
 
       <SidebarContent>
         <SidebarSeparator />
-        <NavMain items={adminMenuList} />
+        <NavMain items={menuList} />
       </SidebarContent>
     </Sidebar>
   );
