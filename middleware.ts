@@ -27,23 +27,26 @@ const intlMiddleware = createMiddleware({
   localePrefix: 'always',
 });
 
-// ✅ daftar route protected (butuh login)
-const protectedPaths = ['/dashboard', '/profile', '/users', '/blog', '/assets'];
+// ✅ guest-only pages
+const authPages = ['/auth'];
 
-// ✅ daftar route auth (hanya untuk guest, kalau login redirect)
-const authPages = ['/auth/login', '/auth/register'];
+// ✅ user-protected pages (Access is allowed for all roles after login.)
+const protectedPaths = ['/dashboard', '/profile'];
+
+// ✅ admin-only pages
+const adminPaths = ['/users', '/settings'];
 
 export default auth((req) => {
   const res = intlMiddleware(req);
   const { pathname } = req.nextUrl;
-
-  // Ambil locale dari URL
   const segments = pathname.split('/');
   const locale = locales.includes(segments[1] as any)
     ? segments[1]
     : defaultLocale;
 
-  // 🔒 jika user sudah login & akses halaman auth -> redirect ke dashboard
+  // -------------------------
+  // 1) auth pages → guest only
+  // -------------------------
   if (authPages.some((page) => pathname.startsWith(`/${locale}${page}`))) {
     if (req.auth) {
       return Response.redirect(new URL(`/${locale}/dashboard`, req.url));
@@ -51,10 +54,27 @@ export default auth((req) => {
     return res;
   }
 
-  // 🔒 jika akses halaman protected & belum login -> redirect ke login
+  // -------------------------
+  // 2) General access – login required
+  // -------------------------
   if (protectedPaths.some((page) => pathname.startsWith(`/${locale}${page}`))) {
     if (!req.auth) {
       return Response.redirect(new URL(`/${locale}/auth/login`, req.url));
+    }
+  }
+
+  // -------------------------
+  // 3) Admin-only route
+  // -------------------------
+  if (adminPaths.some((page) => pathname.startsWith(`/${locale}${page}`))) {
+    const role = req.auth?.user?.role;
+    if (!req.auth) {
+      // If not logged in → redirect to login
+      return Response.redirect(new URL(`/${locale}/auth/login`, req.url));
+    }
+    if (role !== 'ADMIN') {
+      // Authenticated but not admin → redirect to dashboard
+      return Response.redirect(new URL(`/${locale}/dashboard`, req.url));
     }
   }
 
