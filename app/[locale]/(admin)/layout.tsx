@@ -12,9 +12,9 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   const session = await auth();
-  if (!session) {
-    redirect('/');
-  }
+  // if (!session) {
+  //   redirect('/');
+  // }
   const cookieStore = await cookies();
 
   const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';

@@ -6,9 +6,9 @@ import { webTitle } from '@/lib/staticData';
 
 const LoginPage = async () => {
   const session = await auth();
-  if (session) {
-    redirect('/');
-  }
+  // if (session) {
+  //   redirect('/');
+  // }
   return (
     <div className="w-full flex flex-col items-center justify-center gap-6">
       <div>
