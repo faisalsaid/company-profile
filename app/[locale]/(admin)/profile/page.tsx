@@ -1,6 +1,7 @@
 import { auth } from '@/auth';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import ChangePassword from './_components/ChangePassword';
 
 const ProfilePage = async () => {
   const session = await auth();
@@ -25,7 +26,11 @@ const ProfilePage = async () => {
             <p className=" text-sm capitalize">
               {session.user.role.toLocaleLowerCase()}
             </p>
-            <Button>Edit Profile</Button>
+
+            <div className="flex gap-4 mx-auto items-center justify-center">
+              <ChangePassword />
+              <Button>Edit Profile</Button>
+            </div>
           </div>
         </div>
       </div>
