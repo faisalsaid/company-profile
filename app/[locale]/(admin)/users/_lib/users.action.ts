@@ -1,7 +1,7 @@
 'use server';
 
 import prisma from '@/lib/prisma';
-import { Prisma } from '@prisma/client';
+import { Prisma, UserRole } from '@prisma/client';
 import { CreaterUserSchema, createUserSchema } from './users.zod';
 import crypto from 'crypto';
 import { createTransport } from 'nodemailer';
@@ -72,3 +72,21 @@ export async function registerNewUser({
     return { ok: false, error: 'Account creation failed. Please try again.' };
   }
 }
+
+export interface UpdateUserRoleInput {
+  userId: string;
+  role: UserRole;
+}
+export const updateUserRole = async ({ userId, role }: UpdateUserRoleInput) => {
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: { role },
+    });
+
+    return updatedUser;
+  } catch (error) {
+    console.error('❌ Failed to update user role:', error);
+    throw new Error('Failed to update user role.');
+  }
+};
