@@ -6,7 +6,6 @@ import { LocaleSwitcher } from '@/components/LocaleSwitcher';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
 import BreadcrumbsNavbar from './BreadcrumbsNavbar';
 import UserMenu from './UserMenu';
-import { Session } from 'next-auth';
 import { useCurrentUser } from '../../_lib/UserProvider';
 
 const Navbar = () => {

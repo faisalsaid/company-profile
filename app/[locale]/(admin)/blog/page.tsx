@@ -1,12 +1,10 @@
-import { Button } from '@/components/ui/button';
-import { Link } from '@/i18n/navigation';
 import prisma from '@/lib/prisma';
 import { Prisma } from '@prisma/client';
-import { Plus } from 'lucide-react';
 import { redirect } from 'next/navigation';
 import PostFilterBar from './_components/table/PostFilterBar';
 import AllPostTable from './_components/table/AllPostsTable';
 import { AllPostsColumns } from './_components/table/AllPostColumns';
+import AddPostButton from './_components/AddPostButton';
 
 interface ParamsProps {
   search?: string;
@@ -133,13 +131,7 @@ const BlogPage = async ({ searchParams }: PostPageProps) => {
     <div className="space-y-4">
       <div className="flex items-center justify-between bg-primary-foreground p-2 rounded-xl">
         <h2>All Post</h2>
-        <div>
-          <Link href={'/blog/create'}>
-            <Button size={'sm'}>
-              <Plus /> Add post
-            </Button>
-          </Link>
-        </div>
+        <AddPostButton />
       </div>
       <div className="bg-primary-foreground p-4 rounded-xl space-y-4">
         <div>

@@ -36,6 +36,9 @@ const protectedPaths = ['/dashboard', '/profile'];
 // ✅ admin-only pages
 const adminPaths = ['/users', '/settings'];
 
+// ✅ editor+admin pages
+const editorPaths = ['/blog/create'];
+
 export default auth((req) => {
   const res = intlMiddleware(req);
   const { pathname } = req.nextUrl;
@@ -74,6 +77,19 @@ export default auth((req) => {
     }
     if (role !== 'ADMIN') {
       // Authenticated but not admin → redirect to dashboard
+      return Response.redirect(new URL(`/${locale}/dashboard`, req.url));
+    }
+  }
+
+  // -------------------------
+  // 4) Editor + Admin route
+  // -------------------------
+  if (editorPaths.some((page) => pathname.startsWith(`/${locale}${page}`))) {
+    const role = req.auth?.user?.role;
+    if (!req.auth) {
+      return Response.redirect(new URL(`/${locale}/auth/login`, req.url));
+    }
+    if (role !== 'ADMIN' && role !== 'EDITOR') {
       return Response.redirect(new URL(`/${locale}/dashboard`, req.url));
     }
   }
