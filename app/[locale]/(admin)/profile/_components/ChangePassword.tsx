@@ -77,76 +77,81 @@ const ChangePassword = () => {
               onSubmit={form.handleSubmit(onSubmit)}
               className="grid gap-4 py-2"
             >
-              {/* Old Password */}
-              <FormField
-                control={form.control}
-                name="oldPassword"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Old password</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Input
-                          {...field}
-                          type={showOld ? 'text' : 'password'}
-                          placeholder={showOld ? 'Type Password' : '••••••••'}
-                          className="pr-10 text-sm"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowOld(!showOld)}
-                          className="absolute inset-y-0 right-0 px-3 flex items-center text-muted-foreground"
-                          tabIndex={-1}
-                        >
-                          {showOld ? <EyeOff size={18} /> : <Eye size={18} />}
-                        </button>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <fieldset
+                disabled={form.formState.isSubmitting}
+                className="space-y-4"
+              >
+                {/* Old Password */}
+                <FormField
+                  control={form.control}
+                  name="oldPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Old password</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <Input
+                            {...field}
+                            type={showOld ? 'text' : 'password'}
+                            placeholder={showOld ? 'Type Password' : '••••••••'}
+                            className="pr-10 text-sm"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowOld(!showOld)}
+                            className="absolute inset-y-0 right-0 px-3 flex items-center text-muted-foreground"
+                            tabIndex={-1}
+                          >
+                            {showOld ? <EyeOff size={18} /> : <Eye size={18} />}
+                          </button>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              {/* New Password */}
-              <FormField
-                control={form.control}
-                name="newPassword"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>New Password</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Input
-                          {...field}
-                          type={showNew ? 'text' : 'password'}
-                          placeholder={showNew ? 'Type Password' : '••••••••'}
-                          className="pr-10 text-sm"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowNew(!showNew)}
-                          className="absolute inset-y-0 right-0 px-3 flex items-center text-muted-foreground"
-                          tabIndex={-1}
-                        >
-                          {showNew ? <EyeOff size={18} /> : <Eye size={18} />}
-                        </button>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                {/* New Password */}
+                <FormField
+                  control={form.control}
+                  name="newPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>New Password</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <Input
+                            {...field}
+                            type={showNew ? 'text' : 'password'}
+                            placeholder={showNew ? 'Type Password' : '••••••••'}
+                            className="pr-10 text-sm"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowNew(!showNew)}
+                            className="absolute inset-y-0 right-0 px-3 flex items-center text-muted-foreground"
+                            tabIndex={-1}
+                          >
+                            {showNew ? <EyeOff size={18} /> : <Eye size={18} />}
+                          </button>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <DialogFooter>
-                <DialogClose asChild>
-                  <Button variant="outline">Cancel</Button>
-                </DialogClose>
-                <Button type="submit" disabled={form.formState.isSubmitting}>
-                  {form.formState.isSubmitting
-                    ? 'Processing...'
-                    : 'Update Password'}
-                </Button>
-              </DialogFooter>
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button variant="outline">Cancel</Button>
+                  </DialogClose>
+                  <Button type="submit" disabled={form.formState.isSubmitting}>
+                    {form.formState.isSubmitting
+                      ? 'Processing...'
+                      : 'Update Password'}
+                  </Button>
+                </DialogFooter>
+              </fieldset>
               <p className="text-xs p-2 border rounded-lg bg-green-500/10 border-green-200 text-green-700">
                 <span className="font-semibold">Tips :</span> If you forgot your
                 old password, please log out and use the forgot password feature
