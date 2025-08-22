@@ -37,7 +37,7 @@ const protectedPaths = ['/dashboard', '/profile'];
 const adminPaths = ['/users', '/settings'];
 
 // ✅ editor+admin pages
-const editorPaths = ['/blog/create'];
+const editorPaths = ['/blog', '/assets'];
 
 export default auth((req) => {
   const res = intlMiddleware(req);
