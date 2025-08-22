@@ -17,8 +17,6 @@ const Navbar = () => {
         <BreadcrumbsNavbar />
       </div>
       <div className="flex gap-4 items-center justify-center">
-        <LocaleSwitcher />
-        <ThemeSwitcher />
         <div className="hidden md:block text-sm">
           <p>{currentUser?.name}</p>
           <p className="text-xs capitalize text-muted-foreground">
@@ -26,6 +24,8 @@ const Navbar = () => {
           </p>
         </div>
         <UserMenu curentUser={currentUser} />
+        <ThemeSwitcher />
+        <LocaleSwitcher />
       </div>
     </nav>
   );
