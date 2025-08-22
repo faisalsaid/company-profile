@@ -17,13 +17,29 @@ import { adminMenuList } from '../_lib/listSidebar';
 import { Session } from 'next-auth';
 
 export function AppSidebar({ session }: { session: Session | null }) {
-  const protectRoute = ['/users', '/settings'];
+  const role = session?.user.role;
 
-  const isAdmin = session?.user.role === 'ADMIN';
+  // daftar url yang tidak boleh diakses editor
+  const editorRestricted = ['/users', '/settings'];
 
-  const menuList = adminMenuList.filter((item) =>
-    isAdmin ? true : !protectRoute.includes(item.url),
-  );
+  // daftar url yang boleh diakses user
+  const userAllowed = ['/dashboard', '/inbox'];
+
+  const menuList = adminMenuList.filter((item) => {
+    if (role === 'ADMIN') {
+      return true; // semua menu
+    }
+
+    if (role === 'EDITOR') {
+      return !editorRestricted.includes(item.url);
+    }
+
+    if (role === 'USER') {
+      return userAllowed.includes(item.url);
+    }
+
+    return false; // default: tidak ada akses
+  });
 
   return (
     <Sidebar collapsible="icon">

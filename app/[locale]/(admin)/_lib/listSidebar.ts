@@ -29,7 +29,7 @@ export const adminMenuList = [
   },
   {
     title: 'Settings',
-    url: '#',
+    url: '/settings',
     icon: Settings,
   },
 ];
