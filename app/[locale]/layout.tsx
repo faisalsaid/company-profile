@@ -44,6 +44,7 @@ export default async function RootLayout(props: {
         name: true,
         email: true,
         role: true,
+        image: true,
       },
     });
   }

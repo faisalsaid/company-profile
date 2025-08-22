@@ -14,22 +14,23 @@ import { House, LogOutIcon, Settings, User } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
+import { CurrentUser } from '../../_lib/UserProvider';
 
-const UserMenu = ({ data }: { data: Session | null }) => {
+const UserMenu = ({ curentUser }: { curentUser: CurrentUser }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar className="hover:cursor-pointer">
-          <AvatarImage src={data?.user.image as string} alt={'profile'} />
+          <AvatarImage src={curentUser?.image as string} alt={'profile'} />
           <AvatarFallback>!</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent sideOffset={10}>
         <DropdownMenuLabel>
           <div className=" sm:hidden">
-            <p className="capitalize line-clamp-1 ">{data?.user.name}</p>
+            <p className="capitalize line-clamp-1 ">{curentUser?.name}</p>
             <p className="text-xs text-muted-foreground capitalize">
-              {data?.user.role.toLocaleLowerCase()}
+              {curentUser?.role.toLocaleLowerCase()}
             </p>
           </div>
           <p className="hidden sm:block">My Account</p>

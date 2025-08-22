@@ -2,11 +2,12 @@
 
 import { createContext, useContext } from 'react';
 
-type CurrentUser = {
+export type CurrentUser = {
   id: string;
   name: string | null;
   email: string;
   role: string;
+  image: string | null;
 } | null;
 
 const UserContext = createContext<CurrentUser>(null);
