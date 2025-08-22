@@ -8,6 +8,8 @@ import { Toaster } from '@/components/ui/sonner';
 import { NextIntlClientProvider } from 'next-intl';
 import { LocaleSwitcher } from '@/components/LocaleSwitcher';
 import 'flag-icon-css/css/flag-icons.min.css';
+import prisma from '@/lib/prisma';
+import { UserProvider } from './_lib/UserProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -32,7 +34,21 @@ export default async function RootLayout(props: {
 
   const session = await auth();
 
-  console.log('CURENT USER', session?.user);
+  let currentUser = null;
+
+  if (session?.user?.id) {
+    currentUser = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+      },
+    });
+  }
+
+  console.log('CURENT USER', currentUser);
 
   // Handle error jika file locale tidak ada
   let messages;
@@ -55,7 +71,7 @@ export default async function RootLayout(props: {
         >
           <SessionProvider session={session}>
             <NextIntlClientProvider locale={locale} messages={messages}>
-              {props.children}
+              <UserProvider user={currentUser}>{props.children}</UserProvider>
             </NextIntlClientProvider>
           </SessionProvider>
           <Toaster richColors position="top-center" />
