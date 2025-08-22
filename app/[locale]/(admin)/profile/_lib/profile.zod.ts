@@ -13,3 +13,9 @@ export const changePasswordSchema = z.object({
 });
 
 export type ChangePasswordSchema = z.infer<typeof changePasswordSchema>;
+
+export const editProfileSchema = z.object({
+  name: z.string().min(2, 'Nama harus lebih dari 2 karakter'),
+});
+
+export type EditProfileSchema = z.infer<typeof editProfileSchema>;

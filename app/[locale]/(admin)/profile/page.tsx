@@ -2,6 +2,7 @@ import { auth } from '@/auth';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import ChangePassword from './_components/ChangePassword';
+import EditProfile from './_components/EditProfile';
 
 const ProfilePage = async () => {
   const session = await auth();
@@ -29,7 +30,7 @@ const ProfilePage = async () => {
 
             <div className="flex gap-4 mx-auto items-center justify-center">
               <ChangePassword />
-              <Button>Edit Profile</Button>
+              <EditProfile currentName={session.user.name as string} />
             </div>
           </div>
         </div>

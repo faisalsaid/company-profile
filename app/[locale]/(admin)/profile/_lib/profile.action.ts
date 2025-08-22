@@ -4,7 +4,7 @@ import prisma from '@/lib/prisma';
 import { auth } from '@/auth';
 import { compare, hash } from 'bcrypt-ts';
 import { z } from 'zod';
-import { changePasswordSchema } from './profile.zod';
+import { changePasswordSchema, editProfileSchema } from './profile.zod';
 
 export async function changePasswordAction(
   values: z.infer<typeof changePasswordSchema>,
@@ -42,6 +42,27 @@ export async function changePasswordAction(
   await prisma.user.update({
     where: { id: user.id },
     data: { hashedPassword: hashed },
+  });
+
+  return { success: true };
+}
+
+export async function updateProfileAction(
+  values: z.infer<typeof editProfileSchema>,
+) {
+  const session = await auth();
+  if (!session?.user?.id) {
+    return { success: false, message: 'Unauthorized' };
+  }
+
+  const parsed = editProfileSchema.safeParse(values);
+  if (!parsed.success) {
+    return { success: false, message: 'Invalid input' };
+  }
+
+  await prisma.user.update({
+    where: { id: session.user.id },
+    data: { name: parsed.data.name },
   });
 
   return { success: true };
