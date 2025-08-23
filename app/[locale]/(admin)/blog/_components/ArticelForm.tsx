@@ -27,7 +27,6 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import RitchTextEditor from '@/components/RitchTextEditor';
-import { Separator } from '@/components/ui/separator';
 import { createArticle, updateArticle } from '@/actions/articleAction';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
@@ -47,8 +46,8 @@ const ArticelForm = ({ initialData, session }: Props) => {
   const router = useRouter();
 
   // handle roles
-  const userRoleId =
-    session?.user.role && ['ADMIN', 'EDITOR'].includes(session?.user.role);
+  // const userRoleId =
+  //   session?.user.role && ['ADMIN', 'EDITOR'].includes(session?.user.role);
 
   const filteredStatus = session.user.id
     ? postStatus

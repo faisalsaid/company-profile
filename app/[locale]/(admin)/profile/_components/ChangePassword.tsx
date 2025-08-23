@@ -55,6 +55,7 @@ const ChangePassword = () => {
         form.reset();
         setOpen(false);
       }
+      // eslint-disable-next-line
     } catch (error: any) {
       toast.error(error.message || 'Gagal update password');
     } finally {

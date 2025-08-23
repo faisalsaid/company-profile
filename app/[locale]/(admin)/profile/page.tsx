@@ -1,8 +1,5 @@
 import { auth } from '@/auth';
-import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import ChangePassword from './_components/ChangePassword';
-import EditProfile from './_components/EditProfile';
 import UserPofile from './_components/UserPofile';
 
 const ProfilePage = async () => {

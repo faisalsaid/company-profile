@@ -10,9 +10,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Link } from '@/i18n/navigation';
-import { House, LogOutIcon, Settings, User } from 'lucide-react';
+import { LogOutIcon, User } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import { CurrentUser } from '../../_lib/UserProvider';
 

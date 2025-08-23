@@ -1,7 +1,4 @@
-import prisma from '@/lib/prisma';
-
 import { auth } from '@/auth';
-import { redirect } from 'next/navigation';
 import { getPostBySlug } from '@/actions/articleAction';
 import ArticelForm from '../../_components/ArticelForm';
 

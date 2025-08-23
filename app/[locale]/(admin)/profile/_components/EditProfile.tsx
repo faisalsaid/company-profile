@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
@@ -54,6 +53,7 @@ const EditProfile = ({ currentName }: { currentName: string }) => {
       toast.success('Profil berhasil diperbarui');
       router.refresh();
       setOpen(false);
+      // eslint-disable-next-line
     } catch (error: any) {
       toast.error(error.message || 'Terjadi kesalahan');
     } finally {

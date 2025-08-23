@@ -6,7 +6,6 @@ import { auth } from '@/auth';
 import { ThemeProvider } from '@/components/themeProvider';
 import { Toaster } from '@/components/ui/sonner';
 import { NextIntlClientProvider } from 'next-intl';
-import { LocaleSwitcher } from '@/components/LocaleSwitcher';
 import 'flag-icon-css/css/flag-icons.min.css';
 import prisma from '@/lib/prisma';
 import { UserProvider } from './_lib/UserProvider';
