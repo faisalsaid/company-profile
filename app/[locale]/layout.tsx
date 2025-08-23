@@ -49,7 +49,7 @@ export default async function RootLayout(props: {
     });
   }
 
-  console.log('CURENT USER', currentUser);
+  // console.log('CURENT USER', currentUser);
 
   // Handle error jika file locale tidak ada
   let messages;
