@@ -52,7 +52,7 @@ export default auth((req) => {
   // -------------------------
   if (authPages.some((page) => pathname.startsWith(`/${locale}${page}`))) {
     if (req.auth) {
-      return Response.redirect(new URL(`/${locale}/dashboard`, req.url));
+      return Response.redirect(new URL(`/not-found`, req.url));
     }
     return res;
   }
@@ -77,7 +77,8 @@ export default auth((req) => {
     }
     if (role !== 'ADMIN') {
       // Authenticated but not admin → redirect to dashboard
-      return Response.redirect(new URL(`/${locale}/dashboard`, req.url));
+      // return Response.redirect(new URL(`/${locale}/dashboard`, req.url));
+      return Response.redirect(new URL(`/not-found`, req.url));
     }
   }
 
@@ -90,7 +91,8 @@ export default auth((req) => {
       return Response.redirect(new URL(`/${locale}/auth/login`, req.url));
     }
     if (role !== 'ADMIN' && role !== 'EDITOR') {
-      return Response.redirect(new URL(`/${locale}/dashboard`, req.url));
+      // return Response.redirect(new URL(`/${locale}/dashboard`, req.url));
+      return Response.redirect(new URL(`/not-found`, req.url));
     }
   }
 
