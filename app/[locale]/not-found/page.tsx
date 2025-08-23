@@ -14,7 +14,7 @@ const NotFoundPage = async () => {
 
         <Link
           className="text-sky-600 underline"
-          href={`/${session ? 'dashboad' : '/'}`}
+          href={`/${session ? 'dashboard' : '/'}`}
         >
           Bring me back
         </Link>
